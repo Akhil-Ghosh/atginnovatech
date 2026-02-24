@@ -3,674 +3,1362 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATG Innovatech | Enterprise SAP & Power BI Consulting</title>
+  <title>ATG Innovatech | Enterprise Data Consulting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-primary: #050c1a;
-      --bg-secondary: #080f20;
-      --bg-card: rgba(255,255,255,0.035);
-      --accent: #0ea5e9;
-      --accent-2: #6366f1;
-      --accent-glow: rgba(14,165,233,0.18);
-      --text-primary: #f0f4ff;
-      --text-secondary: #8b9ab8;
-      --border: rgba(255,255,255,0.07);
-      --glass: rgba(14,165,233,0.06);
+      --navy: #060d1f;
+      --navy-2: #0b1630;
+      --navy-3: #0f1e42;
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --cyan-light: #67e8f9;
+      --white: #f0f4ff;
+      --muted: #8b9cc8;
+      --card-bg: rgba(15, 30, 66, 0.6);
+      --border: rgba(99, 132, 255, 0.15);
+      --glow: rgba(6, 182, 212, 0.18);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
+      background: var(--navy);
+      color: var(--white);
       font-family: 'Inter', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      overflow-x: hidden;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* ── NOISE TEXTURE ── */
+    /* ── GRID NOISE OVERLAY ── */
     body::before {
       content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 6%;
-      background: rgba(5,12,26,0.7);
-      backdrop-filter: blur(18px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.2rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(6, 13, 31, 0.85);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      transition: background 0.3s;
     }
+
     .logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.35rem; font-weight: 700;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #fff 30%, var(--accent));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-decoration: none;
     }
-    .logo span { color: var(--accent); -webkit-text-fill-color: var(--accent); }
-    nav ul { display: flex; gap: 2.2rem; list-style: none; }
+
+    .logo span { color: var(--cyan); }
+
+    nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
     nav ul a {
-      color: var(--text-secondary); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
       transition: color 0.2s;
     }
-    nav ul a:hover { color: var(--text-primary); }
+
+    nav ul a:hover { color: var(--white); }
+
     .nav-cta {
-      background: var(--accent); color: #fff !important;
-      padding: 0.5rem 1.2rem; border-radius: 6px;
+      background: var(--cyan);
+      color: var(--navy) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
       transition: opacity 0.2s !important;
     }
-    .nav-cta:hover { opacity: 0.85; }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span {
-      display: block; width: 22px; height: 2px;
-      background: var(--text-primary); margin: 5px 0;
-      transition: all 0.3s;
-    }
+
+    .nav-cta:hover { opacity: 0.85; color: var(--navy) !important; }
 
     /* ── HERO ── */
-    #hero {
+    .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 8rem 6% 4rem;
-      position: relative; overflow: hidden;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
     }
+
     .hero-orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
     }
-    .orb-1 {
+
+    .hero-orb-1 {
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
-      top: -100px; left: -100px;
-      animation: drift 12s ease-in-out infinite alternate;
+      background: rgba(37, 99, 235, 0.25);
+      top: -100px; left: -200px;
     }
-    .orb-2 {
+
+    .hero-orb-2 {
       width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
-      bottom: -80px; right: -80px;
-      animation: drift 16s ease-in-out infinite alternate-reverse;
+      background: rgba(6, 182, 212, 0.2);
+      bottom: -100px; right: -150px;
     }
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(40px, 30px) scale(1.08); }
-    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 860px; }
+
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--glass); border: 1px solid rgba(14,165,233,0.25);
-      color: var(--accent); padding: 0.4rem 1rem; border-radius: 50px;
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 1.8rem;
-      animation: fadeUp 0.7s ease both;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.3);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--cyan-light);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
+
     .hero-badge::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); display: block;
-      box-shadow: 0 0 8px var(--accent);
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 2s infinite;
     }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 6vw, 4.5rem);
-      font-weight: 700; line-height: 1.1;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      max-width: 880px;
-      animation: fadeUp 0.7s 0.1s ease both;
+      margin-bottom: 1.5rem;
     }
-    h1 .highlight {
-      background: linear-gradient(135deg, var(--accent) 0%, #38bdf8 50%, var(--accent-2) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
+    h1 .gradient-text {
+      background: linear-gradient(135deg, var(--cyan-light), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
     .hero-sub {
-      color: var(--text-secondary); font-size: 1.125rem; max-width: 560px;
-      margin: 1.5rem auto 2.5rem;
-      animation: fadeUp 0.7s 0.2s ease both;
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
     }
+
     .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.7s 0.3s ease both;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #6366f1);
-      color: #fff; padding: 0.85rem 2rem; border-radius: 8px;
-      font-size: 0.95rem; font-weight: 600; border: none; cursor: pointer;
-      text-decoration: none; display: inline-block;
-      box-shadow: 0 0 30px rgba(14,165,233,0.3);
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
       transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(6,182,212,0.3);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(14,165,233,0.45); }
-    .btn-ghost {
-      background: transparent; color: var(--text-primary);
-      padding: 0.85rem 2rem; border-radius: 8px;
-      border: 1px solid var(--border); font-size: 0.95rem; font-weight: 500;
-      text-decoration: none; display: inline-block;
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(6,182,212,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
       transition: border-color 0.2s, background 0.2s;
     }
-    .btn-ghost:hover { border-color: var(--accent); background: var(--glass); }
-    .hero-stats {
-      display: flex; gap: 3rem; margin-top: 5rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.7s 0.4s ease both;
-    }
-    .hero-stat { text-align: center; }
-    .hero-stat .num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), #fff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero-stat p { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
-    /* ── SECTION SHARED ── */
-    section { padding: 6rem 6%; position: relative; }
-    .section-label {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      background: rgba(6,182,212,0.06);
     }
-    .section-title {
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat-num {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700;
-      letter-spacing: -0.02em; line-height: 1.2;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--cyan-light);
     }
-    .section-sub { color: var(--text-secondary); font-size: 1rem; margin-top: 0.75rem; max-width: 520px; }
+
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 5%; position: relative; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+
     .section-header { margin-bottom: 3.5rem; }
 
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
-      margin: 0 6%;
-    }
-
     /* ── SERVICES ── */
-    #services { background: var(--bg-secondary); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .service-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border); border-radius: 14px;
-      padding: 2rem 1.75rem;
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-      position: relative; overflow: hidden;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .service-card:hover { border-color: rgba(14,165,233,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon {
-      width: 48px; height: 48px; border-radius: 10px;
-      background: var(--glass); border: 1px solid rgba(14,165,233,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; margin-bottom: 1.2rem;
-    }
-    .service-tag {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
-    }
-    .service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
-    .service-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+    #services { background: var(--navy-2); }
 
-    /* ── WHY US ── */
-    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-    .why-left { }
-    .props-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2.5rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      backdrop-filter: blur(12px);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6,182,212,0.4);
+      box-shadow: 0 20px 60px rgba(6,182,212,0.1);
+    }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .icon-sap { background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3); }
+    .icon-pbi { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3); }
+
+    .service-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .service-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+    }
+
+    .tag-sap { background: rgba(37,99,235,0.15); color: #93c5fd; }
+    .tag-pbi { background: rgba(6,182,212,0.12); color: var(--cyan-light); }
+
+    /* ── VALUE PROPS ── */
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
     .prop-item {
-      display: flex; gap: 1.1rem; align-items: flex-start;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.3rem 1.4rem;
-      transition: border-color 0.3s;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
-    .prop-item:hover { border-color: rgba(14,165,233,0.25); }
+
     .prop-icon {
-      width: 38px; height: 38px; min-width: 38px; border-radius: 8px;
-      background: var(--glass); border: 1px solid rgba(14,165,233,0.2);
-      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .prop-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
     }
-    .prop-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .prop-item p { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.55; }
-    .why-visual {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px;
-      padding: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem;
+
+    .prop-item p {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.6;
     }
-    .metric-row {
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .metric-label { font-size: 0.8rem; color: var(--text-secondary); min-width: 140px; }
-    .bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 6px; overflow: hidden; }
-    .bar-fill {
-      height: 100%; border-radius: 6px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      width: 0%; transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
-    }
-    .metric-val { font-size: 0.8rem; font-weight: 700; color: var(--accent); min-width: 36px; text-align: right; }
-    .why-visual-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
     /* ── INDUSTRIES ── */
-    #industries { background: var(--bg-secondary); }
-    .industries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    #industries { background: var(--navy-2); }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
     .industry-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.75rem 1.25rem; text-align: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 1.2rem;
+      text-align: center;
       transition: border-color 0.3s, transform 0.3s;
-    }
-    .industry-card:hover { border-color: rgba(14,165,233,0.3); transform: translateY(-3px); }
-    .industry-card .ind-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-    .industry-card h4 { font-size: 0.88rem; font-weight: 600; }
-    .industry-card p { font-size: 0.76rem; color: var(--text-secondary); margin-top: 0.3rem; }
-
-    /* ── CASE STUDIES ── */
-    .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .case-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 2rem; position: relative; overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .case-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-    .case-card .case-accent {
-      position: absolute; top: 0; right: 0;
-      width: 120px; height: 120px;
-      background: radial-gradient(circle at top right, rgba(14,165,233,0.1), transparent 70%);
-    }
-    .case-industry {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
-    }
-    .case-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; }
-    .case-stat {
-      font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), #fff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 0.25rem;
-    }
-    .case-desc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.55; }
-    .case-stack { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; }
-    .case-tag {
-      font-size: 0.7rem; padding: 0.25rem 0.7rem; border-radius: 50px;
-      background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.2);
-      color: var(--accent);
+      cursor: default;
     }
 
-    /* ── TECH ── */
-    #tech { background: var(--bg-secondary); }
-    .tech-strip { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 3rem; }
+    .industry-card:hover {
+      border-color: rgba(6,182,212,0.4);
+      transform: translateY(-3px);
+    }
+
+    .industry-card .ind-icon { font-size: 2rem; margin-bottom: 0.7rem; }
+
+    .industry-card p {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ── RESULTS ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .result-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+    }
+
+    .result-card:hover { border-color: rgba(6,182,212,0.4); }
+
+    .result-stat {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--cyan-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-card p {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .result-client {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── TECH STACK ── */
+    #tech { background: var(--navy-2); }
+
+    .tech-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+
     .tech-badge {
-      display: flex; align-items: center; gap: 0.6rem;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 0.65rem 1.2rem;
-      font-size: 0.83rem; font-weight: 500;
-      transition: border-color 0.2s, background 0.2s;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .tech-badge:hover { border-color: rgba(14,165,233,0.3); background: var(--glass); }
-    .tech-badge .t-icon { font-size: 1.1rem; }
+
+    .tech-badge:hover {
+      border-color: rgba(6,182,212,0.4);
+      color: var(--white);
+    }
 
     /* ── CONTACT ── */
-    #contact { }
-    .contact-wrap {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
     }
-    .contact-info h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    .contact-info p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
-    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; color: var(--text-secondary); }
-    .contact-item .c-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--glass); border: 1px solid rgba(14,165,233,0.2);
-      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+
+    .contact-info h2 { margin-bottom: 1rem; }
+
+    .contact-info p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
-    form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .contact-detail span:first-child { color: var(--cyan); font-size: 1.1rem; }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    form input, form textarea, form select {
+
+    input, textarea, select {
+      background: rgba(15, 30, 66, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
       width: 100%;
-      background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text-primary); border-radius: 8px;
-      padding: 0.85rem 1rem; font-size: 0.88rem; font-family: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
       outline: none;
     }
-    form input:focus, form textarea:focus, form select:focus {
-      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+
+    input:focus, textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(6,182,212,0.1);
     }
-    form input::placeholder, form textarea::placeholder { color: rgba(139,154,184,0.6); }
-    form textarea { resize: vertical; min-height: 130px; }
-    form select option { background: #0d1a2e; }
-    .form-submit { margin-top: 0.5rem; }
+
+    textarea { resize: vertical; min-height: 130px; }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #fff;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(6,182,212,0.25);
+      width: 100%;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(6,182,212,0.4);
+    }
 
     /* ── FOOTER ── */
     footer {
+      background: var(--navy);
       border-top: 1px solid var(--border);
-      padding: 2.5rem 6%;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      padding: 2.5rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    footer p { font-size: 0.8rem; color: var(--text-secondary); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text-primary); }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
     }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ── SCROLL REVEAL ── */
     .reveal {
-      opacity: 0; transform: translateY(24px);
+      opacity: 0;
+      transform: translateY(30px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── CLIENTS ── */
+    #clients {
+      padding: 5rem 5%;
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    .clients-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .clients-header h2 { margin-bottom: 0.6rem; }
+
+    .clients-header p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Marquee */
+    .marquee-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--navy), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--navy), transparent); }
+
+    .marquee-track {
+      display: flex;
+      gap: 2rem;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1.4rem;
+      white-space: nowrap;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .marquee-logo {
+      width: 32px; height: 22px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .marquee-logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+
+    /* Featured client grid */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .client-feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .client-feature-card:hover {
+      border-color: rgba(6,182,212,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(6,182,212,0.1);
+    }
+
+    .client-feature-card.featured {
+      border-color: rgba(37,99,235,0.35);
+      background: rgba(37,99,235,0.07);
+    }
+
+    .client-feature-card.featured:hover { border-color: rgba(37,99,235,0.6); }
+
+    .client-logo-wrap {
+      width: 80px; height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.1rem;
+    }
+
+    .client-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .client-feature-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .client-feature-card .client-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .client-feature-card .client-tag {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .clients-footnote {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── TEAM ── */
+    #team { background: var(--navy-2); }
+
+    .team-layout {
+      display: block;
+    }
+
+    /* Primary card: side-by-side layout */
+    .team-card-primary {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .team-card-primary:hover {
+      border-color: rgba(6,182,212,0.4);
+      box-shadow: 0 24px 80px rgba(6,182,212,0.12);
+    }
+
+    .team-card-img-wrap {
+      flex-shrink: 0;
+      width: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .team-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: grayscale(10%);
+      transition: transform 0.5s;
+    }
+
+    .team-card-primary:hover .team-card-img-wrap img { transform: scale(1.03); }
+
+    /* Cyan accent bar on left edge */
+    .team-card-img-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--cyan), var(--blue));
+    }
+
+    .team-card-body {
+      padding: 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .team-role-tag {
+      display: inline-block;
+      background: rgba(6,182,212,0.12);
+      border: 1px solid rgba(6,182,212,0.3);
+      border-radius: 4px;
+      padding: 0.28rem 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan-light);
+      margin-bottom: 0.8rem;
+      align-self: flex-start;
+    }
+
+    .team-card-body h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-card-body .team-title {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .team-card-body p {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .team-clients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .client-chip {
+      background: rgba(37,99,235,0.12);
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 6px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #93c5fd;
+    }
+
+    /* Secondary card: stacked, image clearly above text */
+    .team-card-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s;
+      display: flex;
+      flex-direction: row;
+      max-width: 560px;
+    }
+
+    .team-card-secondary:hover { border-color: rgba(6,182,212,0.3); }
+
+    .team-card-secondary .team-card-img-wrap {
+      width: 200px;
+      min-height: 220px;
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+
+    .team-card-secondary .team-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+    }
+
+    /* Keep the same right-edge accent bar as primary */
+    .team-card-secondary .team-card-img-wrap::after {
+      top: 0; right: 0; bottom: 0; left: auto;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--cyan), var(--blue));
+    }
+
+    .team-card-secondary .team-card-body {
+      padding: 1.4rem 1.6rem 1.6rem;
+      justify-content: flex-start;
+    }
+
+    .team-card-secondary .team-card-body h3 { font-size: 1.2rem; }
+
+    .team-card-secondary .client-chip {
+      background: rgba(6,182,212,0.1);
+      border-color: rgba(6,182,212,0.2);
+      color: var(--cyan-light);
+    }
+
+    /* Client logo strip inside founder card */
+    .client-logo-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .cls-item {
+      background: transparent;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 60px;
+    }
+
+    .cls-item img {
+      height: 22px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .team-card-primary, .team-card-secondary { flex-direction: column; max-width: 100%; }
+      .team-card-primary .team-card-img-wrap,
+      .team-card-secondary .team-card-img-wrap { width: 100%; height: 260px; }
+      .team-card-img-wrap::after {
+        top: auto; right: 0; bottom: 0; left: 0;
+        width: 100%; height: 3px;
+      }
+      .team-card-secondary .team-card-img-wrap img { height: 100%; object-fit: contain; }
+    }
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       nav ul { display: none; }
-      nav ul.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,12,26,0.97); padding: 1.5rem 6%; gap: 1.2rem; border-bottom: 1px solid var(--border); }
-      .hamburger { display: block; }
-      .why-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
       .form-row { grid-template-columns: 1fr; }
-      .hero-stats { gap: 2rem; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats { gap: 1.5rem; }
+      .team-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="navbar">
-  <div class="logo">ATG<span>.</span>Innovatech</div>
-  <ul id="nav-links">
+<nav>
+  <a href="#" class="logo">ATG<span>Innovatech</span></a>
+  <ul>
     <li><a href="#services">Services</a></li>
-    <li><a href="#why-us">Why Us</a></li>
-    <li><a href="#industries">Industries</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#team">Team</a></li>
     <li><a href="#results">Results</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-orb orb-1"></div>
-  <div class="hero-orb orb-2"></div>
-  <div class="hero-badge">SAP &amp; Power BI Consulting</div>
-  <h1>Transforming Enterprise Data Into <span class="highlight">Competitive Advantage</span></h1>
-  <p class="hero-sub">ATG Innovatech partners with mid-market and enterprise organizations to modernize their SAP landscapes and unlock the full power of their data with Power BI.</p>
-  <div class="hero-actions">
-    <a href="#contact" class="btn-primary">Schedule a Free Discovery Call</a>
-    <a href="#services" class="btn-ghost">Explore Services</a>
-  </div>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="num">150+</div><p>Projects Delivered</p></div>
-    <div class="hero-stat"><div class="num">98%</div><p>Client Retention</p></div>
-    <div class="hero-stat"><div class="num">14+</div><p>Industries Served</p></div>
-    <div class="hero-stat"><div class="num">$1.2B+</div><p>Client Value Unlocked</p></div>
+<section class="hero" id="home">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">SAP &amp; Power BI Consulting</div>
+    <h1>
+      Transforming Enterprise Data Into<br>
+      <span class="gradient-text">Competitive Advantage</span>
+    </h1>
+    <p class="hero-sub">
+      ATG Innovatech delivers end-to-end SAP implementation and Power BI intelligence solutions
+      that help enterprise organizations move faster, spend less, and decide smarter.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Schedule a Free Consultation</a>
+      <a href="#services" class="btn-secondary">Explore Services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">150+</div>
+        <div class="hero-stat-label">Implementations Delivered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">98%</div>
+        <div class="hero-stat-label">Client Retention Rate</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">12+</div>
+        <div class="hero-stat-label">Years of Experience</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="clients-header reveal">
+    <span class="section-tag">Client Heritage</span>
+    <h2>Trusted by the World's Leading Organizations</h2>
+    <p>Our team has delivered enterprise solutions for Fortune 500 companies across healthcare, technology, manufacturing, and energy.</p>
+  </div>
+
+  <!-- Marquee strip -->
+  <div class="marquee-wrap reveal">
+    <div class="marquee-track">
+      <!-- First set -->
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/ibm.svg" alt="IBM" style="filter:brightness(0) invert(1);"/></div>IBM</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/sap.svg" alt="SAP" style="filter:brightness(0) invert(1);"/></div>SAP</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/cardinal.svg" alt="Cardinal Health"/></div>Cardinal Health</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/google.svg" alt="Google"/></div>Google</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/whirlpool.svg" alt="Whirlpool" style="filter:brightness(0) invert(1);"/></div>Whirlpool</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/bakerhughes.svg" alt="Baker Hughes"/></div>Baker Hughes</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/abbvie.svg" alt="AbbVie" style="filter:brightness(0) invert(1);"/></div>AbbVie</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/ibm.svg" alt="IBM" style="filter:brightness(0) invert(1);"/></div>IBM</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/sap.svg" alt="SAP" style="filter:brightness(0) invert(1);"/></div>SAP</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/cardinal.svg" alt="Cardinal Health"/></div>Cardinal Health</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/google.svg" alt="Google"/></div>Google</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/whirlpool.svg" alt="Whirlpool" style="filter:brightness(0) invert(1);"/></div>Whirlpool</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/bakerhughes.svg" alt="Baker Hughes"/></div>Baker Hughes</div>
+      <div class="marquee-item"><div class="marquee-logo"><img src="logos/abbvie.svg" alt="AbbVie" style="filter:brightness(0) invert(1);"/></div>AbbVie</div>
+    </div>
+  </div>
+
+  <!-- Featured client cards -->
+  <div class="clients-grid">
+    <div class="client-feature-card featured reveal">
+      <div class="client-logo-wrap"><img src="logos/ibm.svg" alt="IBM" style="filter:brightness(0) invert(1);"/></div>
+      <h4>IBM</h4>
+      <p class="client-desc">20+ years of enterprise consulting, global program delivery, and SAP center of excellence leadership.</p>
+      <span class="client-tag">20+ Years</span>
+    </div>
+    <div class="client-feature-card featured reveal">
+      <div class="client-logo-wrap"><img src="logos/sap.svg" alt="SAP" style="filter:brightness(0) invert(1);"/></div>
+      <h4>SAP</h4>
+      <p class="client-desc">Current engagement. Deep insider knowledge of SAP's product roadmap, methodology, and partner ecosystem.</p>
+      <span class="client-tag">Current</span>
+    </div>
+    <div class="client-feature-card reveal">
+      <div class="client-logo-wrap"><img src="logos/cardinal.svg" alt="Cardinal Health"/></div>
+      <h4>Cardinal Health</h4>
+      <p class="client-desc">Enterprise SAP implementation across supply chain and healthcare distribution operations.</p>
+      <span class="client-tag">Healthcare</span>
+    </div>
+    <div class="client-feature-card reveal">
+      <div class="client-logo-wrap"><img src="logos/google.svg" alt="Google"/></div>
+      <h4>Google</h4>
+      <p class="client-desc">SAP systems integration and enterprise data workflows supporting global operations at scale.</p>
+      <span class="client-tag">Technology</span>
+    </div>
+    <div class="client-feature-card reveal">
+      <div class="client-logo-wrap"><img src="logos/whirlpool.svg" alt="Whirlpool" style="filter:brightness(0) invert(1);"/></div>
+      <h4>Whirlpool</h4>
+      <p class="client-desc">S/4HANA transformation and manufacturing ERP modernization across global production sites.</p>
+      <span class="client-tag">Manufacturing</span>
+    </div>
+    <div class="client-feature-card reveal">
+      <div class="client-logo-wrap"><img src="logos/bakerhughes.svg" alt="Baker Hughes"/></div>
+      <h4>Baker Hughes</h4>
+      <p class="client-desc">SAP implementation and data infrastructure for one of the world's largest oilfield services companies.</p>
+      <span class="client-tag">Energy</span>
+    </div>
+    <div class="client-feature-card reveal">
+      <div class="client-logo-wrap"><img src="logos/abbvie.svg" alt="AbbVie" style="filter:brightness(0) invert(1);"/></div>
+      <h4>AbbVie</h4>
+      <p class="client-desc">Power BI reporting solutions and ETL pipeline development for pharmaceutical sales and real-world data analytics.</p>
+      <span class="client-tag">Pharma · Power BI</span>
+    </div>
+  </div>
+
+  <p class="clients-footnote reveal">Representative client list based on team member experience. Past employer and client engagements listed individually.</p>
+</section>
 
 <!-- SERVICES -->
 <section id="services">
   <div class="section-header reveal">
-    <div class="section-label">What We Do</div>
-    <h2 class="section-title">End-to-End Implementation.<br/>No Hand-Holding Required.</h2>
-    <p class="section-sub">From legacy SAP migrations to real-time Power BI ecosystems, we own delivery from strategy to go-live.</p>
+    <span class="section-tag">What We Do</span>
+    <h2>Consulting Services Built for Enterprise Scale</h2>
+    <p class="section-sub">From greenfield SAP rollouts to enterprise-grade Power BI ecosystems, we cover the full data value chain.</p>
   </div>
+
   <div class="services-grid">
     <div class="service-card reveal">
-      <div class="service-icon">🏗️</div>
-      <div class="service-tag">SAP</div>
-      <h3>S/4HANA Implementation</h3>
-      <p>Greenfield and brownfield S/4HANA deployments built around your business processes, not the other way around. Accelerated timelines, zero scope creep.</p>
+      <div class="service-icon icon-sap">🏗️</div>
+      <h3>SAP Implementation</h3>
+      <p>Full-cycle S/4HANA and ECC implementations designed for go-live confidence. We manage project governance, data migration, and change management end-to-end.</p>
+      <span class="service-tag tag-sap">SAP</span>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🔄</div>
-      <div class="service-tag">SAP</div>
-      <h3>System Migration &amp; Upgrade</h3>
-      <p>Move from ECC to S/4HANA or modernize aging landscapes with minimal disruption. We've handled migrations of every size and complexity.</p>
+      <div class="service-icon icon-sap">🔄</div>
+      <h3>SAP Migration &amp; Upgrade</h3>
+      <p>Accelerate your move to S/4HANA with a migration approach that minimizes disruption and protects business-critical processes throughout the transition.</p>
+      <span class="service-tag tag-sap">SAP</span>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">⚙️</div>
-      <div class="service-tag">SAP</div>
-      <h3>Managed Support &amp; AMS</h3>
-      <p>Dedicated application management that keeps your SAP environment performing. Proactive monitoring, SLA-backed response, continuous optimization.</p>
+      <div class="service-icon icon-sap">🛠️</div>
+      <h3>SAP Managed Support</h3>
+      <p>Post-go-live AMS and ongoing optimization. Our certified SAP Basis, ABAP, and functional teams keep your landscape stable and continuously improving.</p>
+      <span class="service-tag tag-sap">SAP</span>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">📊</div>
-      <div class="service-tag">Power BI</div>
-      <h3>Dashboard &amp; Reporting</h3>
-      <p>Executive dashboards, operational reports, and self-service analytics built for adoption. If your team doesn't use it, we didn't do our job.</p>
+      <div class="service-icon icon-pbi">📊</div>
+      <h3>Power BI Dashboards</h3>
+      <p>Executive and operational dashboards that connect to your ERP, CRM, and data warehouse sources. Built for performance, built for adoption.</p>
+      <span class="service-tag tag-pbi">Power BI</span>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🧠</div>
-      <div class="service-tag">Power BI</div>
+      <div class="service-icon icon-pbi">🧠</div>
       <h3>Data Modeling &amp; Architecture</h3>
-      <p>Semantic models, star schemas, and medallion architectures that scale. Built on Power BI Premium, Azure Synapse, or Fabric depending on your stack.</p>
+      <p>Star schema design, semantic layer development, and enterprise data model governance. Scalable foundations that your analysts can trust.</p>
+      <span class="service-tag tag-pbi">Power BI</span>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🔗</div>
-      <div class="service-tag">Power BI</div>
+      <div class="service-icon icon-pbi">🔌</div>
       <h3>Embedded Analytics</h3>
-      <p>Power BI Embedded integrated directly into your applications and portals. Give your customers and internal teams the data they need, where they already work.</p>
+      <p>Integrate Power BI reports directly into your applications and portals. Deliver insights at the point of decision without forcing context switches.</p>
+      <span class="service-tag tag-pbi">Power BI</span>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- WHY US -->
 <section id="why-us">
-  <div class="why-grid">
-    <div class="why-left reveal">
-      <div class="section-label">Why ATG Innovatech</div>
-      <h2 class="section-title">We Measure Success<br/>in Outcomes, Not Hours</h2>
-      <p class="section-sub" style="margin-bottom: 0;">Our consultants are practitioners, not generalists. Every engagement is led by someone who has done this before — at scale.</p>
-      <div class="props-list">
-        <div class="prop-item">
-          <div class="prop-icon">🎯</div>
-          <div>
-            <h4>Certified Practitioners</h4>
-            <p>SAP-certified consultants and Microsoft Power Platform specialists with 8+ years average experience per engagement lead.</p>
-          </div>
-        </div>
-        <div class="prop-item">
-          <div class="prop-icon">🚀</div>
-          <div>
-            <h4>Accelerated Delivery</h4>
-            <p>Proven implementation methodology cuts average go-live timelines by 30%. We bring pre-built accelerators, not starting-from-scratch templates.</p>
-          </div>
-        </div>
-        <div class="prop-item">
-          <div class="prop-icon">💡</div>
-          <div>
-            <h4>ROI-First Mindset</h4>
-            <p>Every recommendation is tied to a business case. If we can't defend it with numbers, we won't recommend it.</p>
-          </div>
-        </div>
-        <div class="prop-item">
-          <div class="prop-icon">🔒</div>
-          <div>
-            <h4>Governance Built In</h4>
-            <p>Data governance, security, and compliance aren't afterthoughts. They're part of the architecture from day one.</p>
-          </div>
-        </div>
+  <div class="section-header reveal">
+    <span class="section-tag">Why ATG Innovatech</span>
+    <h2>We Deliver Outcomes, Not Just Hours</h2>
+  </div>
+  <div class="props-grid">
+    <div class="prop-item reveal">
+      <div class="prop-icon">🎯</div>
+      <div>
+        <h3>ROI-First Delivery</h3>
+        <p>Every engagement is scoped around measurable outcomes. We define success metrics before the first sprint starts and hold ourselves accountable to them.</p>
       </div>
     </div>
-    <div class="why-visual reveal" id="why-visual">
-      <div class="why-visual-title">Client Impact Metrics</div>
-      <div class="metric-row">
-        <div class="metric-label">Reporting Cycle Reduction</div>
-        <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
-        <div class="metric-val">82%</div>
+    <div class="prop-item reveal">
+      <div class="prop-icon">🏅</div>
+      <div>
+        <h3>Certified Practitioners</h3>
+        <p>Our team holds SAP-certified and Microsoft-certified credentials across functional, technical, and platform specializations.</p>
       </div>
-      <div class="metric-row">
-        <div class="metric-label">User Adoption Rate</div>
-        <div class="bar-track"><div class="bar-fill" data-width="94"></div></div>
-        <div class="metric-val">94%</div>
+    </div>
+    <div class="prop-item reveal">
+      <div class="prop-icon">🔗</div>
+      <div>
+        <h3>End-to-End Ownership</h3>
+        <p>One partner from discovery through hypercare. No handoffs to offshore strangers six weeks before go-live.</p>
       </div>
-      <div class="metric-row">
-        <div class="metric-label">On-Time Delivery</div>
-        <div class="bar-track"><div class="bar-fill" data-width="91"></div></div>
-        <div class="metric-val">91%</div>
-      </div>
-      <div class="metric-row">
-        <div class="metric-label">Process Efficiency Gain</div>
-        <div class="bar-track"><div class="bar-fill" data-width="68"></div></div>
-        <div class="metric-val">68%</div>
-      </div>
-      <div class="metric-row">
-        <div class="metric-label">Data Accuracy Improvement</div>
-        <div class="bar-track"><div class="bar-fill" data-width="97"></div></div>
-        <div class="metric-val">97%</div>
+    </div>
+    <div class="prop-item reveal">
+      <div class="prop-icon">⚡</div>
+      <div>
+        <h3>Accelerator Frameworks</h3>
+        <p>Pre-built templates, tested data migration tools, and industry-specific configuration accelerators cut your implementation time by up to 30%.</p>
       </div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- INDUSTRIES -->
 <section id="industries">
   <div class="section-header reveal">
-    <div class="section-label">Industries</div>
-    <h2 class="section-title">Deep Domain Knowledge.<br/>Across the Verticals That Matter.</h2>
+    <span class="section-tag">Industries</span>
+    <h2>Deep Vertical Expertise</h2>
+    <p class="section-sub">We understand the regulatory, operational, and data complexity of the sectors we serve.</p>
   </div>
   <div class="industries-grid">
     <div class="industry-card reveal">
       <div class="ind-icon">🏥</div>
-      <h4>Healthcare</h4>
-      <p>Compliance-first analytics and SAP IS-H integrations</p>
+      <p>Healthcare &amp; Life Sciences</p>
     </div>
     <div class="industry-card reveal">
       <div class="ind-icon">🏭</div>
-      <h4>Manufacturing</h4>
-      <p>Shop floor to top floor visibility with real-time OEE reporting</p>
+      <p>Manufacturing</p>
     </div>
     <div class="industry-card reveal">
-      <div class="ind-icon">💊</div>
-      <h4>Life Sciences</h4>
-      <p>GxP-validated systems and 21 CFR Part 11-compliant reporting</p>
-    </div>
-    <div class="industry-card reveal">
-      <div class="ind-icon">🏦</div>
-      <h4>Financial Services</h4>
-      <p>Risk dashboards, regulatory reporting, and SAP FSCM implementations</p>
+      <div class="ind-icon">💳</div>
+      <p>Financial Services</p>
     </div>
     <div class="industry-card reveal">
       <div class="ind-icon">🛒</div>
-      <h4>Retail &amp; CPG</h4>
-      <p>Demand planning, inventory analytics, and SAP S/4HANA for retail</p>
+      <p>Retail &amp; Consumer Goods</p>
     </div>
     <div class="industry-card reveal">
-      <div class="ind-icon">⚡</div>
-      <h4>Energy &amp; Utilities</h4>
-      <p>Asset performance management and SAP IS-U solutions</p>
+      <div class="ind-icon">⚗️</div>
+      <p>Pharmaceuticals</p>
+    </div>
+    <div class="industry-card reveal">
+      <div class="ind-icon">🏗️</div>
+      <p>Engineering &amp; Construction</p>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- RESULTS -->
 <section id="results">
   <div class="section-header reveal">
-    <div class="section-label">Case Studies</div>
-    <h2 class="section-title">Real Engagements.<br/>Quantifiable Results.</h2>
+    <span class="section-tag">Client Results</span>
+    <h2>Numbers That Actually Matter</h2>
+    <p class="section-sub">A sample of measurable outcomes from recent engagements.</p>
   </div>
-  <div class="cases-grid">
-    <div class="case-card reveal">
-      <div class="case-accent"></div>
-      <div class="case-industry">Healthcare · Power BI</div>
-      <h3>Regional Health System Reporting Transformation</h3>
-      <div class="case-stat">42%</div>
-      <p class="case-desc">Reduction in monthly close reporting cycle for a 14-hospital system. Replaced 60+ Excel-based reports with a unified Power BI semantic model and executive dashboard suite.</p>
-      <div class="case-stack">
-        <span class="case-tag">Power BI Premium</span>
-        <span class="case-tag">Azure Synapse</span>
-        <span class="case-tag">SAP BW</span>
+  <div class="results-grid">
+    <div class="result-card reveal">
+      <div class="result-stat">42%</div>
+      <h3>Faster Reporting Cycle</h3>
+      <p>A mid-market pharmaceutical manufacturer reduced monthly financial close reporting from 12 days to 7 days after a Power BI + SAP BW integration project.</p>
+      <span class="result-client">Pharma Manufacturing</span>
+    </div>
+    <div class="result-card reveal">
+      <div class="result-stat">$2.3M</div>
+      <h3>Cost Savings Identified</h3>
+      <p>An S/4HANA migration engagement uncovered $2.3M in procurement inefficiencies through spend analytics dashboards built during parallel workstreams.</p>
+      <span class="result-client">Industrial Distribution</span>
+    </div>
+    <div class="result-card reveal">
+      <div class="result-stat">60%</div>
+      <h3>Reduction in Manual Reporting</h3>
+      <p>Automated 18 recurring Excel-based reports for a regional health system using Power BI scheduled refresh and row-level security.</p>
+      <span class="result-client">Regional Health System</span>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-header reveal">
+    <span class="section-tag">Principal Consultant</span>
+    <h2>Three Decades of Enterprise SAP Experience</h2>
+    <p class="section-sub">ATG Innovatech is built around senior-level expertise — not junior consultants learning on your dime.</p>
+  </div>
+
+  <!-- DAD — Full-width showcase -->
+  <div class="team-card-primary reveal" style="margin-bottom: 1.5rem;">
+    <div class="team-card-img-wrap">
+      <img src="dad.jpg" alt="Ghosh Thinnakkakath — SAP Principal Consultant" />
+    </div>
+    <div class="team-card-body">
+      <span class="team-role-tag">SAP Principal Consultant &amp; Founder</span>
+      <h3>Ghosh Thinnakkakath</h3>
+      <div class="team-title" style="margin-bottom:1.4rem;">20+ Years at IBM &nbsp;·&nbsp; Currently at SAP</div>
+      <p>
+        Ghosh brings over three decades of enterprise SAP delivery, including a 20+ year tenure at IBM where he led
+        large-scale ERP implementations, system integrations, and global program management engagements for Fortune 500 clients.
+        He currently holds a senior role at SAP, giving ATG Innovatech direct access to SAP's product roadmap,
+        methodology, and partner ecosystem. That's an advantage few consulting firms can match.
+      </p>
+      <p style="margin-top:0.8rem;">
+        His delivery experience spans supply chain, finance, manufacturing, and energy verticals.
+        Clients trust him because he's done this at the highest level, at the biggest companies, for decades.
+      </p>
+      <div class="team-clients" style="margin-top:1.4rem;">
+        <span class="client-chip" style="display:inline-flex;align-items:center;gap:0.4rem;">
+          <img src="logos/ibm.svg" style="height:14px;width:auto;filter:brightness(0) invert(1);" alt="IBM"/> IBM · 20+ yrs
+        </span>
+        <span class="client-chip" style="display:inline-flex;align-items:center;gap:0.4rem;">
+          <img src="logos/sap.svg" style="height:14px;width:auto;filter:brightness(0) invert(1);" alt="SAP"/> SAP (current)
+        </span>
+        <span class="client-chip">Cardinal Health</span>
+        <span class="client-chip">Google</span>
+        <span class="client-chip">Whirlpool</span>
+        <span class="client-chip">Baker Hughes</span>
+      </div>
+      <!-- Client logo tiles -->
+      <div class="client-logo-strip">
+        <div class="cls-item"><img src="logos/ibm.svg" alt="IBM" style="filter:brightness(0) invert(1);"/></div>
+        <div class="cls-item"><img src="logos/sap.svg" alt="SAP" style="filter:brightness(0) invert(1);"/></div>
+        <div class="cls-item"><img src="logos/cardinal.svg" alt="Cardinal Health"/></div>
+        <div class="cls-item"><img src="logos/google.svg" alt="Google"/></div>
+        <div class="cls-item"><img src="logos/whirlpool.svg" alt="Whirlpool" style="filter:brightness(0) invert(1);"/></div>
+        <div class="cls-item"><img src="logos/bakerhughes.svg" alt="Baker Hughes"/></div>
       </div>
     </div>
-    <div class="case-card reveal">
-      <div class="case-accent"></div>
-      <div class="case-industry">Manufacturing · SAP</div>
-      <h3>S/4HANA Greenfield for Global OEM</h3>
-      <div class="case-stat">$2.3M</div>
-      <p class="case-desc">In annualized cost savings identified within 6 months of go-live, through process consolidation across 8 plants. Delivered 11 weeks ahead of the original program schedule.</p>
-      <div class="case-stack">
-        <span class="case-tag">S/4HANA 2023</span>
-        <span class="case-tag">SAP MM/PP</span>
-        <span class="case-tag">SAP Fiori</span>
-      </div>
+  </div>
+
+  <!-- AKHIL — Small secondary strip -->
+  <div class="team-card-secondary reveal">
+    <div class="team-card-img-wrap">
+      <img src="akhil.jpg" alt="Akhil Ghosh — Power BI Consultant" />
     </div>
-    <div class="case-card reveal">
-      <div class="case-accent"></div>
-      <div class="case-industry">Life Sciences · Power BI + SAP</div>
-      <h3>Clinical Trial Analytics Platform</h3>
-      <div class="case-stat">10×</div>
-      <p class="case-desc">Faster study data reconciliation compared to the legacy process. Embedded Power BI reports surfaced directly inside the client's existing clinical portal for 2,400+ users.</p>
-      <div class="case-stack">
-        <span class="case-tag">Power BI Embedded</span>
-        <span class="case-tag">SAP BTP</span>
-        <span class="case-tag">Azure Data Factory</span>
+    <div class="team-card-body">
+      <span class="team-role-tag" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);">Power BI &amp; Data Consultant</span>
+      <h3>Akhil Ghosh</h3>
+      <div class="team-title">Analytics &amp; Reporting</div>
+      <p>
+        Data engineer and BI developer with enterprise pharma experience building Power BI dashboards,
+        semantic models, and ETL pipelines. Client: AbbVie.
+      </p>
+      <div class="team-clients">
+        <span class="client-chip" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.2);color:var(--cyan-light);">AbbVie</span>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- TECH -->
+<!-- TECH STACK -->
 <section id="tech">
-  <div class="section-header reveal" style="text-align: center;">
-    <div class="section-label">Certifications &amp; Technology</div>
-    <h2 class="section-title">We Work With the Stack<br/>Your Enterprise Already Uses</h2>
+  <div class="section-header reveal" style="text-align:center">
+    <span class="section-tag">Credentials &amp; Platforms</span>
+    <h2>Built on Platforms You Trust</h2>
   </div>
-  <div class="tech-strip reveal">
-    <div class="tech-badge"><span class="t-icon">🟡</span> SAP Certified Partner</div>
-    <div class="tech-badge"><span class="t-icon">🔵</span> Microsoft Solutions Partner</div>
-    <div class="tech-badge"><span class="t-icon">☁️</span> Azure Data &amp; AI</div>
-    <div class="tech-badge"><span class="t-icon">📊</span> Power Platform</div>
-    <div class="tech-badge"><span class="t-icon">🏭</span> Microsoft Fabric</div>
-    <div class="tech-badge"><span class="t-icon">⚙️</span> SAP S/4HANA</div>
-    <div class="tech-badge"><span class="t-icon">🔗</span> SAP BTP</div>
-    <div class="tech-badge"><span class="t-icon">🧩</span> SAP Analytics Cloud</div>
-    <div class="tech-badge"><span class="t-icon">🔷</span> Azure Synapse</div>
-    <div class="tech-badge"><span class="t-icon">🔑</span> SAP Fiori / UI5</div>
+  <div class="tech-strip">
+    <div class="tech-badge">🏅 SAP Certified Partner</div>
+    <div class="tech-badge">🔷 Microsoft Solutions Partner</div>
+    <div class="tech-badge">☁️ SAP S/4HANA</div>
+    <div class="tech-badge">📊 Power BI Premium</div>
+    <div class="tech-badge">🔷 Azure Synapse Analytics</div>
+    <div class="tech-badge">🔷 Microsoft Fabric</div>
+    <div class="tech-badge">☁️ SAP BTP</div>
+    <div class="tech-badge">🔗 SAP Integration Suite</div>
+    <div class="tech-badge">📦 SAP Ariba</div>
+    <div class="tech-badge">🤖 Copilot for Power BI</div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-wrap">
+  <div class="contact-wrapper">
     <div class="contact-info reveal">
-      <div class="section-label">Contact</div>
-      <h2>Let's Talk About<br/>Your Data Strategy</h2>
-      <p>Whether you're evaluating an S/4HANA migration, rebuilding your BI stack from scratch, or just need an honest second opinion, we're worth 30 minutes of your time.</p>
-      <div class="contact-details">
-        <div class="contact-item">
-          <div class="c-icon">📧</div>
-          <span>info@atginnovatech.com</span>
-        </div>
-        <div class="contact-item">
-          <div class="c-icon">📞</div>
-          <span>+1 (312) 555-0190</span>
-        </div>
-        <div class="contact-item">
-          <div class="c-icon">📍</div>
-          <span>Chicago, IL · Dallas, TX · Remote-first</span>
-        </div>
-      </div>
+      <span class="section-tag">Get In Touch</span>
+      <h2>Ready to Transform Your Data Stack?</h2>
+      <p>Whether you're evaluating SAP S/4HANA, modernizing your reporting layer, or need a second opinion on an existing implementation, we're happy to talk through it.</p>
+      <div class="contact-detail"><span>📍</span><span>Chicago, IL (Serving Clients Nationwide)</span></div>
+      <div class="contact-detail"><span>📧</span><span>hello@atginnovatech.com</span></div>
+      <div class="contact-detail"><span>📞</span><span>+1 (312) 555-0190</span></div>
     </div>
     <form class="reveal" onsubmit="handleSubmit(event)">
       <div class="form-row">
@@ -679,81 +1367,55 @@
       </div>
       <input type="email" placeholder="Work Email" required />
       <input type="text" placeholder="Company" required />
-      <select>
-        <option value="" disabled selected>What are you interested in?</option>
-        <option>SAP Implementation / Migration</option>
-        <option>Power BI / Analytics</option>
-        <option>Managed Support (AMS)</option>
-        <option>Strategy &amp; Assessment</option>
-        <option>Something else</option>
-      </select>
       <textarea placeholder="Tell us about your project or challenge..."></textarea>
-      <div class="form-submit">
-        <button type="submit" class="btn-primary" style="width:100%; font-size: 0.95rem;">Schedule a Free Discovery Call →</button>
-      </div>
+      <button type="submit" class="btn-submit">Schedule a Free Discovery Call →</button>
     </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo">ATG<span>.</span>Innovatech</div>
-  <p>© 2025 ATG Innovatech LLC. All rights reserved.</p>
-  <div class="footer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <p>© 2025 ATG Innovatech. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </footer>
 
 <script>
-  // Mobile nav
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  document.querySelectorAll('#nav-links a').forEach(a => {
-    a.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
-
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Animated bars (trigger when why-visual enters viewport)
-  const barObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.bar-fill').forEach(bar => {
-          bar.style.width = bar.dataset.width + '%';
-        });
-        barObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  const whyVisual = document.getElementById('why-visual');
-  if (whyVisual) barObserver.observe(whyVisual);
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav ul a');
 
-  // Form submit
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--cyan-light)' : '';
+    });
+  });
+
+  // Form stub
   function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = '✓ Message Sent — We\'ll be in touch within 24 hours.';
-    btn.style.background = 'linear-gradient(135deg, #059669, #0d9488)';
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = '✓ Message Sent — We\'ll Be In Touch';
+    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
     btn.disabled = true;
   }
-
-  // Navbar scroll tint
-  window.addEventListener('scroll', () => {
-    document.getElementById('navbar').style.background =
-      window.scrollY > 40 ? 'rgba(5,12,26,0.92)' : 'rgba(5,12,26,0.7)';
-  });
 </script>
+
 </body>
 </html>
