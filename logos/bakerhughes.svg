@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60">
-  <text x="140" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2.5">BAKER HUGHES</text>
-  <line x1="20" y1="36" x2="260" y2="36" stroke="#e8401c" stroke-width="1.8"/>
-  <text x="140" y="50" font-family="Arial, Helvetica, sans-serif" font-size="8.5" fill="#aaaaaa" text-anchor="middle" letter-spacing="3.5">AN ENERGY TECHNOLOGY COMPANY</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 70">
+  <text x="150" y="30" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2">BAKER HUGHES</text>
+  <line x1="30" y1="40" x2="270" y2="40" stroke="#E8401C" stroke-width="2"/>
+  <text x="150" y="58" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#aaaaaa" text-anchor="middle" letter-spacing="4">AN ENERGY TECHNOLOGY COMPANY</text>
 </svg>

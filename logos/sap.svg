@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60">
-  <rect x="0" y="0" width="160" height="60" rx="6" fill="#0070b4"/>
-  <text x="80" y="42" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2">SAP</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <!-- SAP diamond shape -->
+  <polygon points="40,10 160,10 200,70 80,70" fill="url(#sapgrad)"/>
+  <defs>
+    <linearGradient id="sapgrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00b1eb"/>
+      <stop offset="100%" stop-color="#0070b4"/>
+    </linearGradient>
+  </defs>
+  <text x="118" y="52" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">SAP</text>
 </svg>
